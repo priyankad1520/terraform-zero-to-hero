@@ -1,4 +1,4 @@
-# Modules
+# Modules: A Terraform module is a container of multiple resources that are used together and can be reused across different environments
 
 The advantage of using Terraform modules in your infrastructure as code (IaC) projects lies in improved organization, reusability, and maintainability. Here are the key benefits:
 
