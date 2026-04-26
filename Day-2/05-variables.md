@@ -2,6 +2,38 @@
 
 Input and output variables in Terraform are essential for parameterizing and sharing values within your Terraform configurations and modules. They allow you to make your configurations more dynamic, reusable, and flexible.
 
+#### Variable → A placeholder used to store values and reuse them in Terraform code 
+#### Why we use Variable
+-	Avoid hardcoding values (like region, instance type)/ Store dynamic values instead of hardcoding
+-	Use same code for different environments (dev, test, prod)/ Variables make code dynamic, flexible and reusable 
+-	Easy to update values without changing main code, Improve readability and maintainability and Allow users to pass input at runtime 
+- Example:
+```
+ variable "instance_type" {   # Define a variable named instance_type
+  default = "t2.micro"   # Set default value if user does not provide
+}
+
+resource "aws_instance" "example" {   # Create EC2 instance
+  instance_type = var.instance_type   # Use variable value here
+}
+```
+-	variable "instance_type" → Declare variable 
+-	default = "t2.micro" → Assign default value 
+-	var.instance_type → Access variable value 
+#### Types of Variables 
+-	String → Text value (e.g., "t2.micro") 
+-	Number → Numeric value (e.g., 2, 10) 
+-	Bool → True/False values 
+-	List → Multiple values in order (["a", "b"]) 
+-	Map → Key-value pairs ({name = "Priya"}) 
+-	Object → Complex structured data 
+-	Tuple → Fixed list with different data types 
+#### Ways to Define Variables
+-	In .tf file → Using variable block 
+-	In terraform.tfvars → Store values 
+-	CLI → -var="name=value" 
+-	Environment variables → TF_VAR_name=value 
+
 ## Input Variables
 
 Input variables are used to parameterize your Terraform configurations. They allow you to pass values into your modules or configurations from the outside. Input variables can be defined within a module or at the root level of your configuration. Here's how you define an input variable:
