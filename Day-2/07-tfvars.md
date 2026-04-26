@@ -1,8 +1,23 @@
 # Terraform tfvars
-
 In Terraform, `.tfvars` files (typically with a `.tfvars` extension) are used to set specific values for input variables defined in your Terraform configuration. 
 
 They allow you to separate configuration values from your Terraform code, making it easier to manage different configurations for different environments (e.g., development, staging, production) or to store sensitive information without exposing it in your code.
+
+##### Key Points 
+-	Separation → Keeps configuration outside .tf code 
+-	Flexibility → Same code used for different environments 
+-	Security → Store sensitive data (keys, passwords) safely 
+-	Reusability → Reuse same Terraform code with different values 
+-	Team usage → Each user can have their own .tfvars fil
+
+#### Here's how you typically use .tfvars files
+1.	Define your input variables in your Terraform code (e.g., in a variables.tf file).
+2.	Create one or more .tfvars files, each containing specific values for those input variables.
+3.	When running Terraform commands (e.g., terraform apply, terraform plan), you can specify which .tfvars file(s) to use with the -var-file option:
+```
+terraform apply -var-file=dev.tfvars”
+```
+By using .tfvars files, you can keep your Terraform code more generic and flexible while tailoring configurations to different scenarios and environments.
 
 Here's the purpose of `.tfvars` files:
 
