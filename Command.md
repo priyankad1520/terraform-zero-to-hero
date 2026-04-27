@@ -82,25 +82,7 @@ terraform output
 * **destroy** → Delete
 *  “In Terraform, I start with terraform init to initialize, then validate and plan to check changes, and finally apply to create infrastructure. I also use destroy to clean up resources.”
 ---
-#### Terraform Installation Steps
-First, configure AWS if needed, then go to the Terraform documentation, download and install Terraform, run the commands on your machine, and finally verify the installation using terraform --version.
-1. Step 1: Go to Terraform Official Website
-2. Step 2: Choose Your Operating System: Select Windows / Linux / Mac based on your system 
-3. Step 3: Download Terraform: Download the Terraform zip file  Extract the file 
-4. Step 4: Set Environment Variable (PATH)
--	Copy the Terraform folder path  Add it to System Environment Variables (PATH) 
-- This step is important so you can run Terraform from anywhere
-5. Step 5: Verify Installation: terraform –version: If installed correctly → it shows Terraform version 
-- Download → Extract → Set PATH → Verify using terraform –version
-- Basic AWS Configuration (Local System)
-- Install AWS CLI → Tool to interact with AWS from terminal 
--	Run aws configure → Start setup process 
--	Enter Access Key → From AWS IAM user 
--	Enter Secret Key → Secure key for authentication 
--	Set Region → Example: ap-south-1 
--	Set Output Format → json (recommended) 
----
-#### Terraform Key Terminology 
+### Terraform Key Terminology 
 
 1. Provider: A plugin that connects Terraform to a cloud platform. “Provider = connection to cloud” Example → AWS, Azure, GCP. Use → Without provider, Terraform cannot create resources 
 2. Resource: Actual infrastructure you create. “Resource = what you create” 
@@ -131,91 +113,33 @@ Terraform Lifecycle
 •	terraform state → Track infrastructure in .tfstate file 
 •	terraform destroy → Delete all resources
 ---
-## Conditional Expressions
-Conditional expressions in Terraform are used to define conditional logic within your configurations. They allow you to make decisions or set values based on conditions. Conditional expressions are typically used to control whether resources are created or configured based on the evaluation of a condition.
-- The syntax for a conditional expression in Terraform is:
-- condition ? true_val : false_val
--	condition is an expression that evaluates to either true or false.
--	true_val is the value that is returned if the condition is true.
--	false_val is the value that is returned if the condition is false.
----
-## Built-in Functions
-Terraform is an infrastructure as code (IaC) tool that allows you to define and provision infrastructure resources in a declarative manner. Terraform provides a wide range of built-in functions that you can use within your configuration files (usually written in HashiCorp Configuration Language, or HCL) to manipulate and transform data. These functions help you perform various tasks when defining your infrastructure. Here are some commonly used built-in functions in Terraform:
-1. concat(list1, list2, ...): Combines multiple lists into a single list.
-```
-variable "list1" {
-type    = list
-default = ["a", "b"]
-}
+### Does terraform care about file name
+Terraform does NOT care about file names. Terraform will read ALL .tf files together. It only cares about .tf extension. BUT there is ONE EXCEPTION: terraform.tfvars → Name matters
 
-variable "list2" {
-type    = list
-default = ["c", "d"]
+This file must be: terraform.tfvars. Only this name is auto-loaded
+If you rename: myvars.tfvars.  Then Terraform won’t read it unless you do:
+1. CLI arguments: terraform apply -var="instance_type=t2.micro"
+2. Custom tfvars file: terraform apply -var-file="custom.tfvars" or “myvars.tfvars”
+3. Auto-loaded files: Any file ending with:  *.auto.tfvars  Terraform automatically loads
+> Example: dev.auto.tfvars or prod.auto.tfvars
+- If multiple .auto.tfvars exist: Terraform loads ALL of them. If same variable → last one wins
+- Never push to git this 2 files: terraform.tfstate and terraform.tfvars
+- Best Practice Folder Structure
+  
+- For DEV environment: terraform apply -var-file="dev.tfvars"
+- For PROD: terraform apply -var-file="prod.tfvars"
+4. Default values in variables.tf 
+```
+variable "instance_type" {
+  default = "t2.micro"
 }
+```
+- Arguments = Input (what you give)
+- Attributes = Output (what Terraform gives back)
 
-output "combined_list" {
-value = concat(var.list1, var.list2)
-}
-```
-2. element(list, index): Returns the element at the specified index in a list.
-```
-variable "my_list" {
-type    = list
-default = ["apple", "banana", "cherry"]
-}
-
-output "selected_element" {
-value = element(var.my_list, 1) # Returns "banana"
-}
-```
-3. length(list): Returns the number of elements in a list.
-```
-variable "my_list" {
-type    = list
-default = ["apple", "banana", "cherry"]
-}
-
-output "list_length" {
-value = length(var.my_list) # Returns 3
-}
-```
-4. map(key, value): Creates a map from a list of keys and a list of values.
-```
-variable "keys" {
-type    = list
-default = ["name", "age"]
-}
-
-variable "values" {
-type    = list
-default = ["Alice", 30]
-}
-
-output "my_map" {
-value = map(var.keys, var.values) # Returns {"name" = "Alice", "age" = 30}
-}
-```
-5. lookup(map, key): Retrieves the value associated with a specific key in a map.
-```
-variable "my_map" {
-type    = map(string)
-default = {"name" = "Alice", "age" = "30"}
-}
-
-output "value" {
-value = lookup(var.my_map, "name") # Returns "Alice"
-}
-```
-6. join(separator, list): Joins the elements of a list into a single string using the specified separator.
-```
-variable "my_list" {
-type    = list
-default = ["apple", "banana", "cherry"]
-}
-
-output "joined_string" {
-value = join(", ", var.my_list) # Returns "apple, banana, cherry"
-}
-```
-These are just a few examples of the built-in functions available in Terraform. You can find more functions and detailed documentation in the official Terraform documentation, which is regularly updated to include new features and improvements
+Concept	Meaning	Example
+- Runtime Environment	place where your application runs. It provides everything needed to execute your code	Python, Node, Docker
+- Environment Variables	Dynamic values. key-value settings. Used to control app behavior without changing code	PORT=3000
+- Infrastructure	physical or cloud resources. Where your app is deployed and runs	EC2, K8s, Server
+- Configuration	Behavior settings. settings that define how your system behaves	YAML, JSON
 
