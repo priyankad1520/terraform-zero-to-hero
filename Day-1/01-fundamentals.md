@@ -1,3 +1,44 @@
+# Infrastructure as Code (IaC)
+Before IaC, managing infrastructure was manual and slow process
+#### Problems in Traditional Method
+-	Manual Configuration → Servers were set up manually → leads to errors and inconsistency
+-	No Version Control → Difficult to track changes or rollback
+-	Documentation Heavy → Need to write steps manually → becomes outdated quickly
+-	Less Automation → Only basic scripting → not flexible
+-	Slow Provisioning → Creating new resources takes more time
+#### How IaC Solves These Problems
+-	Automation → Infrastructure created automatically using code
+-	Consistency → Same setup every time (no errors)
+-	Version Control → Track changes using Git
+-	Faster Deployment → Create resources quickly
+-	Easy Management → Modify infrastructure easily
+
+- Popular IaC Tools: Terraform, AWS CloudFormation, Azure Resource Manager (ARM)
+#### Key Advantages
+-	Multi-Cloud Support → Works with AWS, Azure, GCP, and on-premises
+-	Large Ecosystem → Many ready-made modules and providers available
+-	Declarative Syntax → Define what you want, not how to do it
+-	State Management → Keeps track of current infrastructure using state file
+-	Plan & Apply → Preview changes before applying → avoids mistakes
+-	Strong Community → Easy to get help, tutorials, and solutions
+-	Integration → Works with Docker, Kubernetes, Jenkins, Ansible
+-	HCL Language → Easy to read and write configuration language
+#### In Simple Words
+-	IaC → Write code to create infrastructure
+-	Terraform → Tool to automate and manage that code easily
+# Terraform
+Terraform is a tool used to create and manage infrastructure using code. It is called Infrastructure as Code (IaC). You write code instead of manually creating servers, networks, etc. 
+- Terraform = “Write code → Infrastructure is created automatically”
+- Infrastructure → All the basic resources (servers, network, storage, software) needed to run an application
+- Ex: Instead of creating an EC2 manually in AWS console, you write code and Terraform creates it
+#### Why we use Terraform?
+To automate infrastructure setup, save time and effort, avoid manual mistakes, maintain same setup everywhere (dev, test, prod) and manage infrastructure easily using code 
+#### What kind of problems it solves?
+-	Manual work → Takes time  Terraform automates everything 
+-	Human errors → Wrong configuration  Terraform ensures consistent setup 
+-	Difficult to manage large infrastructure Terraform manages everything in one place 
+-	No tracking of changes Terraform tracks changes using state file 
+Without Terraform: Login to AWS  Click EC2 → Launch instance → Select AMI, instance type → key pair → Configure network →Launch * Time consuming + manual errors possible
 # Infrastructure as Code(IaC)
 
 Before the advent of IaC, infrastructure management was typically a manual and time-consuming process. System administrators and operations teams had to:
