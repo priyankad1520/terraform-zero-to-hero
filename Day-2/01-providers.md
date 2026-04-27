@@ -14,7 +14,7 @@ provider "aws" {
 
 resource "aws_instance" "example" {
   ami = "ami-0123456789abcdef0" # Change the AMI 
-  instance_type = "t2.micro"
+  instance_type = "t2.micro"    ## Defines CPU & RAM
 }
 ```
 
@@ -59,17 +59,17 @@ resource "aws_instance" "example" {
 You can also configure providers in a child module. This is useful if you want to reuse the same provider configuration in multiple resources.
 
 ```hcl
-module "aws_vpc" {
-  source = "./aws_vpc"
+module "aws_vpc" {     # Create a reusable VPC module named aws_vpc
+  source = "./aws_vpc"   # Load module code from local folder aws_vpc
   providers = {
-    aws = aws.us-west-2
+    aws = aws.us-west-2  # Use AWS provider configured for us-west-2 region
   }
 }
 
-resource "aws_instance" "example" {
-  ami = "ami-0123456789abcdef0"
-  instance_type = "t2.micro"
-  depends_on = [module.aws_vpc]
+resource "aws_instance" "example" {    # Create EC2 instance named example
+  ami = "ami-0123456789abcdef0"    # Specify OS image for instance
+  instance_type = "t2.micro"              # Define instance size (CPU & RAM)
+  depends_on = [module.aws_vpc]   # Ensure VPC module is created before EC2
 }
 ```
 
@@ -78,11 +78,11 @@ resource "aws_instance" "example" {
 You can also configure providers in the required_providers block. This is useful if you want to make sure that a specific provider version is used.
 
 ```hcl
-terraform {
-  required_providers {
-    aws = {
-      source = "hashicorp/aws"
-      version = "~> 3.79"
+terraform {            
+  required_providers {    # Initialize Terraform settings block (global configuration)
+    aws = {       #Declare AWS provider
+      source = "hashicorp/aws"   # Download AWS provider from HashiCorp registry
+      version = "~> 3.79"        # Use compatible version (>=3.79 and <4.0)
     }
   }
 }
