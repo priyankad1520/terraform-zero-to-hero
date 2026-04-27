@@ -1,4 +1,21 @@
 # Setup Terraform for AWS
+#### Terraform Installation Steps
+First, configure AWS if needed, then go to the Terraform documentation, download and install Terraform, run the commands on your machine, and finally verify the installation using terraform --version.
+1. Step 1: Go to Terraform Official Website
+2. Step 2: Choose Your Operating System: Select Windows / Linux / Mac based on your system 
+3. Step 3: Download Terraform: Download the Terraform zip file  Extract the file 
+4. Step 4: Set Environment Variable (PATH)
+-	Copy the Terraform folder path  Add it to System Environment Variables (PATH) 
+- This step is important so you can run Terraform from anywhere
+5. Step 5: Verify Installation: terraform –version: If installed correctly → it shows Terraform version 
+- Download → Extract → Set PATH → Verify using terraform –version
+- Basic AWS Configuration (Local System)
+- Install AWS CLI → Tool to interact with AWS from terminal 
+-	Run aws configure → Start setup process 
+-	Enter Access Key → From AWS IAM user 
+-	Enter Secret Key → Secure key for authentication 
+-	Set Region → Example: ap-south-1 
+-	Set Output Format → json (recommended)
 
 To configure AWS credentials and set up Terraform to work with AWS, you'll need to follow these steps:
 
